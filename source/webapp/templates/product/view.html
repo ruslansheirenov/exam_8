@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Product {{ product.pk }}{% endblock %}
+{% block nav %}
+    <li class="nav-item">
+        <a class="nav-link" href="#">Update</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Delete</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Add a review</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    {% comment %} <img src="{{product.picture.url}}"> {% endcomment %}
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.description }}</p>
+    <p>{{ product.category }}</p>
+    <br>
+    <h3>Отзывы</h3>
+    {% for review in reviews %}
+        <p>{{ review.content }}</p>
+        <p>{{ review.raiting }}</p>
+    {% endfor %}
+{% endblock %}

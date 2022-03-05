@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from webapp.models import Product
 
 # Create your views here.
+
+#Список товаров
 
 class IndexView(LoginRequiredMixin, ListView):
     context_object_name = 'products'
@@ -16,4 +18,16 @@ class IndexView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
+        return context
+
+#Детальный просмотр отдного товара
+
+class ProductView(DetailView):
+    template_name = 'product/view.html'
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviews = self.object.reviews.order_by("-created_at")
+        context['reviews'] = reviews
         return context

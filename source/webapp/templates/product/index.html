@@ -2,11 +2,11 @@
 
 {% block title %}Product List{% endblock title %}
 {% block content %}
-    <h1>Issues</h1>
+    <h1>Products</h1>
     {% for product in products %}
-        <h3>{{ product.picture }}</h3>
-        <img src="{{product.picture.url}}">
-        <p><a href="#">More...</a></p>
+        {% comment %} <img src="{{product.picture.url}}"> {% endcomment %}
+        <h3>{{ product.title }}</h3>
+        <p><a href="{% url 'webapp:product_view' product.pk %}">More...</a></p>
     {% endfor %}
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
