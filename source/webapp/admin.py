@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ['id']
     search_fields = ['content']
-    readonli_fields = ['created_at', 'updated_at']
+    readonly_fields = ['created_at', 'updated_at']
     fields = ['content', 'product', 'rating', 'check_moder', 'created_at', 'updated_at']
 
 

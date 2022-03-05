@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Product List{% endblock title %}
+{% block content %}
+    <h1>Issues</h1>
+    {% for product in products %}
+        <h3>{{ product.picture }}</h3>
+        <img src="{{product.picture.url}}">
+        <p><a href="#">More...</a></p>
+    {% endfor %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+{% endblock %}
