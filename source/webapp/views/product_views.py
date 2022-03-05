@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from webapp.models import Product
+from webapp.forms import ProductForm
 
 # Create your views here.
 
@@ -31,3 +32,25 @@ class ProductView(DetailView):
         reviews = self.object.reviews.order_by("-created_at")
         context['reviews'] = reviews
         return context
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = "product/create.html"
+
+    def form_valid(self, form):
+        self.issue = form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
+
+    
+class ProductUpdateView(UpdateView):
+    model = Product
+    template_name = 'product/update.html'
+    form_class = ProductForm
+    context_object_name = 'product'
+
+    def get_success_url(self):
+        return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
