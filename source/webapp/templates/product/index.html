@@ -1,14 +1,5 @@
 {% extends 'base.html' %}
 
-{% block title %}Product List{% endblock title %}
 {% block content %}
-    <h1>Products</h1>
-    {% for product in products %}
-        {% comment %} <img src="{{product.picture.url}}"> {% endcomment %}
-        <h3>{{ product.title }}</h3>
-        <p><a href="{% url 'webapp:product_view' product.pk %}">More...</a></p>
-    {% endfor %}
-    {% if is_paginated %}
-        {% include 'partial/pagination.html' %}
-    {% endif %}
-{% endblock %}
+    {% include "partial/product_list.html" %}
+{% endblock content %}

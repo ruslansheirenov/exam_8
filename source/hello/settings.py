@@ -34,6 +34,13 @@ ALLOWED_HOSTS = []
 MEDIA_ROOT = BASE_DIR.joinpath ('uploads')
 MEDIA_URL = 'media/'
 
+LOGOUT_REDIRECT_URL = "webapp:index"
+LOGIN_REDIRECT_URL = "webapp:index"
+
+LOGIN_URL = 'accounts:login'
+
+STATIC_URL = 'static/'
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',

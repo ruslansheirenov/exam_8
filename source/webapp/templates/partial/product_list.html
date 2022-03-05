@@ -1,0 +1,27 @@
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}
+
+<h2>Products</h2>
+
+{% for product in products %}
+    {% comment %} <img src="{{ product.picture.url }}"> {% endcomment %}
+    <h3>{{ product.title }}</h3>
+
+    <p><a href="{{ product.get_absolute_url }}">More...</a></p>
+
+    {% if perms.webapp.change_product %}
+        <p><a href="{% url "webapp:product_update" product.pk %}">Update</a></p>
+    {% endif %}
+
+    {% if perms.webapp.delete_product %}
+        <p><a href="{% url "webapp:product_delete" product.pk %}">Delete</a></p>
+    {% endif %}
+
+{% empty %}
+    <p>Products not yet...</p>
+{% endfor %}
+
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}

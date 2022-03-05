@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -20,6 +21,7 @@ class Product(models.Model):
 
 class Review(models.Model):
     RAITING_CHOICES = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)]
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET_DEFAULT, default=1, related_name='reviews', verbose_name='Автор')
     content = models.TextField(max_length=2000, verbose_name="Контент")
     product = models.ForeignKey("webapp.Product", on_delete=models.CASCADE, related_name="reviews", verbose_name="Продукт",)
     rating = models.IntegerField(choices=RAITING_CHOICES)
