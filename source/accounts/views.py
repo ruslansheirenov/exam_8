@@ -62,7 +62,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         paginator = Paginator(
-            self.get_object().articles.all(),
+            self.get_object().reviews.all(),
             self.paginate_related_by,
             self.paginate_related_orphans,
         )
