@@ -16,3 +16,18 @@ class Product(models.Model):
         db_table = 'products'
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+
+
+class Review(models.Model):
+    RAITING_CHOICES = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)]
+    content = models.TextField(max_length=2000, verbose_name="Контент")
+    product = models.ForeignKey("webapp.Product", on_delete=models.CASCADE, related_name="reviews", verbose_name="Продукт",)
+    rating = models.IntegerField(choices=RAITING_CHOICES)
+    check_moder = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
+
+    class Meta:
+        db_table = 'reviews'
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'

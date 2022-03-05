@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product
+from .models import Product, Review
 
 # Register your models here.
 
@@ -9,4 +9,13 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['title']
     fields = ['title', 'description', 'category', 'picture']
 
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['id']
+    search_fields = ['content']
+    readonli_fields = ['created_at', 'updated_at']
+    fields = ['content', 'product', 'rating', 'check_moder', 'created_at', 'updated_at']
+
+
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Review, ReviewAdmin)
