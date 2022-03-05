@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from webapp.models import Product
@@ -33,6 +34,8 @@ class ProductView(DetailView):
         context['reviews'] = reviews
         return context
 
+#Создание товара
+
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
@@ -45,6 +48,7 @@ class ProductCreateView(CreateView):
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
 
+#Редактирование товара
     
 class ProductUpdateView(UpdateView):
     model = Product
@@ -54,3 +58,11 @@ class ProductUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
+
+#Удаление товара
+
+class ProductDeleteView(DeleteView):
+    template_name = 'product/delete.html'
+    model = Product
+    context_object_name = 'product'
+    success_url = reverse_lazy('webapp:index')
